@@ -342,7 +342,7 @@ jobs:
         if: ${{ github.ref_name == 'main' }}
         run: ./test/Scripts.Integration.Test/add-sentry.ps1 -UnityPath "${{ env.UNITY_PATH }}"
 
-      - name: Build with Sentry SDK
+      - name: Configure Sentry
         run: |
           $isAndroid = ('${{ matrix.platform }}' -eq 'Android')
           $isNotMainBranch = ('${{ github.ref_name }}' -ne 'main')

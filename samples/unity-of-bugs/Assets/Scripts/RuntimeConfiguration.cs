@@ -1,3 +1,4 @@
+using System.IO;
 using Sentry;
 using UnityEngine;
 using Sentry.Unity;
@@ -12,6 +13,15 @@ public class RuntimeConfiguration : SentryRuntimeOptionsConfiguration
     /// Learn more at https://docs.sentry.io/platforms/unity/configuration/options/#programmatic-configuration
     public override void Configure(SentryUnityOptions options)
     {
+        // Android does not support appending builds. We make sure the directory is clean
+        var outputDir = Path.GetDirectoryName(args["buildPath"]);
+        if (Directory.Exists(outputDir))
+        {
+            Debug.Log("Builder: Cleaning the buildPath");
+            Directory.Delete(outputDir, true);
+        }
+
+
         // Note that changes to the options here will **not** affect iOS, macOS and Android events. (i.e. environment and release)
         // Take a look at `SentryBuildTimeOptionsConfiguration` instead.
 

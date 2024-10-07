@@ -58,13 +58,12 @@ public class Builder
 
         if (target == BuildTarget.Android)
         {
-            // Android does not support appending builds. We make sure the directory does not exist
-            Debug.Log("Builder: Attempting to clean the buildPath");
-
-            if (Directory.Exists(args["buildPath"]))
+            // Android does not support appending builds. We make sure the directory is clean
+            var outputDir = Path.GetDirectoryName(args["buildPath"]);
+            if (Directory.Exists(outputDir))
             {
                 Debug.Log("Builder: Cleaning the buildPath");
-                Directory.Delete(args["buildPath"], true);
+                Directory.Delete(outputDir, true);
             }
 
             Debug.Log("Builder: Enabling minify");
