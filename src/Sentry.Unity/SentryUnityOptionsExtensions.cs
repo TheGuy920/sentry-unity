@@ -65,6 +65,8 @@ public static class SentryUnityOptionsExtensions
 
     internal static void AddIl2CppExceptionProcessor(this SentryUnityOptions options, ISentryUnityInfo unityInfo)
     {
+        options.DiagnosticLogger?.LogDebug("IL2CPP is set to: '{0}'", unityInfo.IL2CPP);
+
         if (unityInfo.Il2CppMethods is not null)
         {
             options.AddExceptionProcessor(new UnityIl2CppEventExceptionProcessor(options, unityInfo));

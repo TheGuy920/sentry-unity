@@ -12,9 +12,9 @@ internal static class ContextWriter
 
     internal static void WriteOS(string? OperatingSystemRawDescription)
     {
-        var obj = C.sentry_value_new_object();
-        C.SetValueIfNotNull(obj, "raw_description", OperatingSystemRawDescription);
-        C.sentry_set_context(Sentry.Protocol.OperatingSystem.Type, obj);
+        // var obj = C.sentry_value_new_object();
+        // C.SetValueIfNotNull(obj, "raw_description", OperatingSystemRawDescription);
+        // C.sentry_set_context(Sentry.Protocol.OperatingSystem.Type, obj);
     }
 
     internal static void WriteDevice(
