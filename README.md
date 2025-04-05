@@ -16,6 +16,9 @@ Sentry SDK for Unity (Newtonsoft.Json EDITION)
 > ### This is a port of Sentry.Unity that relies on Newtonsoft.Json instead of System.Text.Json
 > ### It targets netstandard2.1 ONLY
 
+> [!CAUTION]
+> #### I completely destroyed whatever workflow they had going on in an effort to get it compiling, ported, and done with
+
 ___
 
 [![build](https://github.com/getsentry/sentry-unity/workflows/CI/badge.svg?branch=main)](https://github.com/getsentry/sentry-unity/actions?query=branch%3Amain)
