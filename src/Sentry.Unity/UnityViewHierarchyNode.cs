@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using System.Text.Json;
+using Newtonsoft.Json;
 using Sentry.Extensibility;
+using Sentry.Internal.Extensions;
 
 namespace Sentry.Unity;
 
@@ -16,7 +17,7 @@ internal class UnityViewHierarchyNode : ViewHierarchyNode
 
     public UnityViewHierarchyNode(string name) : base(name) { }
 
-    protected override void WriteAdditionalProperties(Utf8JsonWriter writer, IDiagnosticLogger? logger)
+    protected override void WriteAdditionalProperties(JsonTextWriter writer, IDiagnosticLogger? logger)
     {
         if (!string.IsNullOrWhiteSpace(Tag))
         {
@@ -43,7 +44,8 @@ internal class UnityViewHierarchyNode : ViewHierarchyNode
 
         if (Extras is { } extras)
         {
-            writer.WriteStartArray("extras");
+            writer.WritePropertyName("extras");
+            writer.WriteStartArray();
             foreach (var extra in extras)
             {
                 writer.WriteStringValue(extra);

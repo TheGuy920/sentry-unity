@@ -1,5 +1,5 @@
 using System;
-using System.Text.Json;
+using Newtonsoft.Json;
 using Sentry.Extensibility;
 
 namespace Sentry.Unity.Json;
@@ -21,7 +21,7 @@ internal static class SafeSerializer
         }
         try
         {
-            return JsonSerializer.Serialize(value);
+            return JsonConvert.SerializeObject(value);
         }
         catch (Exception e)
         {

@@ -1,8 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutDir>$(PackageRuntimePath)</OutDir>
+    <LangVersion>latestmajor</LangVersion>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <OutDir>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/OUT</OutDir>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <NoWarn>$(NoWarn);1705;8632</NoWarn>
   </PropertyGroup>
 
   <Target Name="CleanDotnetSdkFiles" AfterTargets="Clean">
@@ -16,17 +19,95 @@
     <Delete Files="@(FilesToDelete)" ContinueOnError="true" />
   </Target>
 
+
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CrashReportingModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.CrashReportingModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAudioModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.UnityWebRequestModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestTextureModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestWWWModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.InputModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.InputModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.InputLegacyModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ClusterInputModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.ClusterInputModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ScreenCaptureModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.ScreenCaptureModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.ImageConversionModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityAnalyticsModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.UnityAnalyticsModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Memory">
+      <HintPath>/home/theguy920/.nuget/packages/system.memory/4.5.3/lib/netstandard2.0/System.Memory.dll</HintPath>
+      <FusionName>System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51</FusionName>
+      <SpecificVersion>true</SpecificVersion>
+    </Reference>
+    <Reference Include="System.Buffers">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/System.Buffers.dll</HintPath>
+      <FusionName>System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51</FusionName>
+      <SpecificVersion>true</SpecificVersion>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/System.Threading.Tasks.Extensions.dll</HintPath>
+      <FusionName>System.Text.Encoding.Extensions, Version=4.0.11.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</FusionName>
+      <SpecificVersion>true</SpecificVersion>
+    </Reference>
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="../sentry-dotnet/src/Sentry/Sentry.csproj" />
   </ItemGroup>
-
-  <Target Name="alias-references" AfterTargets="AfterCompile">
-    <WriteLinesToFile File="$(DevPackagePath)/alias-references.txt" Lines="$(UnityManagedPath)/UnityEngine.dll" Overwrite="true" />
-  </Target>
 
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
       <_Parameter1>Sentry.Unity.Native</_Parameter1>
     </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ReferencePathWithRefAssemblies Update="\home\theguy920\.nuget\packages\netstandard.library.ref\2.1.0\ref\netstandard2.1\System.Threading.Tasks.Extensions.dll" />
   </ItemGroup>
 </Project>

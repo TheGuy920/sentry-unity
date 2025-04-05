@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
+using Newtonsoft.Json;
 using Sentry.Extensibility;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -45,7 +45,7 @@ public class ViewHierarchyEventProcessor : ISentryEventProcessorWithHint
     internal byte[] CaptureViewHierarchy()
     {
         using var stream = new MemoryStream();
-        using var writer = new Utf8JsonWriter(stream);
+        using var writer = new JsonTextWriter(new StreamWriter(stream));
 
         var viewHierarchy = CreateViewHierarchy(
             _options.MaxViewHierarchyRootObjects,

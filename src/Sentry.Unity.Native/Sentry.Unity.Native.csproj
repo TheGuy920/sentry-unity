@@ -1,7 +1,273 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutDir>$(PackageRuntimePath)</OutDir>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>latestmajor</LangVersion>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AccessibilityModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.AccessibilityModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AndroidJNIModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.AndroidJNIModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AssetBundleModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.AssetBundleModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AudioModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.AudioModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ClusterInputModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.ClusterInputModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ClusterRendererModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.ClusterRendererModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ContentLoadModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.ContentLoadModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CrashReportingModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.CrashReportingModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.DirectorModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.DirectorModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.DSPGraphModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.DSPGraphModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.GameCenterModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.GameCenterModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.GIModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.GIModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.GridModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.GridModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.HotReloadModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.HotReloadModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.ImageConversionModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.IMGUIModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.InputLegacyModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.InputModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.InputModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.JSONSerializeModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.JSONSerializeModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.LocalizationModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.LocalizationModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.NVIDIAModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.NVIDIAModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ParticleSystemModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.ParticleSystemModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.PerformanceReportingModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.PerformanceReportingModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.Physics2DModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.Physics2DModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.PhysicsModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ProfilerModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.ProfilerModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.PropertiesModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.PropertiesModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ScreenCaptureModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.ScreenCaptureModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.SharedInternalsModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.SharedInternalsModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.SpriteMaskModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.SpriteMaskModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.SpriteShapeModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.SpriteShapeModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.StreamingModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.StreamingModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.SubstanceModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.SubstanceModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.SubsystemsModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.SubsystemsModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TerrainModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.TerrainModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TerrainPhysicsModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.TerrainPhysicsModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextCoreFontEngineModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.TextCoreFontEngineModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextCoreTextEngineModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.TextCoreTextEngineModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TilemapModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.TilemapModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TLSModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.TLSModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.UI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UIElementsModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.UIElementsModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.UIModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UmbraModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.UmbraModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityAnalyticsCommonModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.UnityAnalyticsCommonModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityAnalyticsModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.UnityAnalyticsModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityConnectModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.UnityConnectModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityCurlModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.UnityCurlModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityTestProtocolModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.UnityTestProtocolModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <!--    <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">-->
+    <!--      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>-->
+    <!--      <Private>false</Private>-->
+    <!--    </Reference>-->
+    <!--    <Reference Include="UnityEngine.UnityWebRequestAudioModule">-->
+    <!--      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.UnityWebRequestAudioModule.dll</HintPath>-->
+    <!--      <Private>false</Private>-->
+    <!--    </Reference>-->
+    <!--    <Reference Include="UnityEngine.UnityWebRequestModule">-->
+    <!--      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.UnityWebRequestModule.dll</HintPath>-->
+    <!--      <Private>false</Private>-->
+    <!--    </Reference>-->
+    <!--    <Reference Include="UnityEngine.UnityWebRequestTextureModule">-->
+    <!--      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.UnityWebRequestTextureModule.dll</HintPath>-->
+    <!--      <Private>false</Private>-->
+    <!--    </Reference>-->
+    <!--    <Reference Include="UnityEngine.UnityWebRequestWWWModule">-->
+    <!--      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.UnityWebRequestWWWModule.dll</HintPath>-->
+    <!--      <Private>false</Private>-->
+    <!--    </Reference>-->
+    <Reference Include="UnityEngine.VehiclesModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.VehiclesModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.VFXModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.VFXModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.VideoModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.VideoModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.VirtualTexturingModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.VirtualTexturingModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.VRModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.VRModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.WindModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.WindModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.XRModule">
+      <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.XRModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="../sentry-dotnet/src/Sentry/Sentry.csproj" Private="false" />

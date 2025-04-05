@@ -1,4 +1,3 @@
-using Sentry.Unity;
 using UnityEngine;
 
 public class TestUnityInfo : ISentryUnityInfo

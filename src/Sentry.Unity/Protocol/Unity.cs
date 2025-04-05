@@ -1,7 +1,9 @@
 using System.IO;
 using System.Text;
-using System.Text.Json;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Sentry.Extensibility;
+using Sentry.Internal.Extensions;
 using Sentry.Unity.Extensions;
 
 namespace Sentry.Unity.Protocol;
@@ -67,7 +69,7 @@ public sealed class Unity : ISentryJsonSerializable
             ActiveSceneName = ActiveSceneName
         };
 
-    public void WriteTo(Utf8JsonWriter writer, IDiagnosticLogger? logger)
+    public void WriteTo(JsonTextWriter writer, IDiagnosticLogger? logger)
     {
         writer.WriteStartObject();
 
@@ -106,21 +108,21 @@ public sealed class Unity : ISentryJsonSerializable
         writer.WriteEndObject();
     }
 
-    public static Unity FromJson(JsonElement json)
+    public static Unity FromJson(JToken json)
         => new()
         {
-            EditorVersion = json.GetPropertyOrNull("editor_version")?.GetString(),
-            InstallMode = json.GetPropertyOrNull("install_mode")?.GetString(),
-            CopyTextureSupport = json.GetPropertyOrNull("copy_texture_support")?.GetString(),
-            RenderingThreadingMode = json.GetPropertyOrNull("rendering_threading_mode")?.GetString(),
-            TargetFrameRate = json.GetPropertyOrNull("target_frame_rate")?.GetString(),
-            ActiveSceneName = json.GetPropertyOrNull("active_scene_name")?.GetString()
+            EditorVersion = json["editor_version"]?.Value<string>(),
+            InstallMode = json["install_mode"]?.Value<string>(),
+            CopyTextureSupport = json["copy_texture_support"]?.Value<string>(),
+            RenderingThreadingMode = json["rendering_threading_mode"]?.Value<string>(),
+            TargetFrameRate = json["target_frame_rate"]?.Value<string>(),
+            ActiveSceneName = json["active_scene_name"]?.Value<string>()
         };
 
     public string ToJsonString(IDiagnosticLogger? logger = null)
     {
         using var stream = new MemoryStream();
-        using var writer = new Utf8JsonWriter(stream);
+        using var writer = new JsonTextWriter(new StreamWriter(stream));
 
         WriteTo(writer, logger);
         writer.Flush();
