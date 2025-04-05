@@ -9,7 +9,7 @@
 </p>
 <p align="center">
 
-Sentry SDK for Unity
+Sentry SDK for Unity (Newtonsoft.Json EDITION)
 ===========
 
 [![build](https://github.com/getsentry/sentry-unity/workflows/CI/badge.svg?branch=main)](https://github.com/getsentry/sentry-unity/actions?query=branch%3Amain)
