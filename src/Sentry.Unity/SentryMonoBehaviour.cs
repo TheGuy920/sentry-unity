@@ -10,21 +10,11 @@ namespace Sentry.Unity;
 [AddComponentMenu("")] // Hides it from being added as a component in the inspector
 public partial class SentryMonoBehaviour : MonoBehaviour
 {
-    private static SentryMonoBehaviour? _instance;
-    public static SentryMonoBehaviour Instance
+    public static SentryMonoBehaviour CreateInstance()
     {
-        get
-        {
-            // Unity overrides `==` operator in MonoBehaviours
-            if (_instance == null)
-            {
-                // HideAndDontSave excludes the gameObject from the scene meaning it does not get destroyed on loading/unloading
-                var sentryGameObject = new GameObject("SentryMonoBehaviour") { hideFlags = HideFlags.HideAndDontSave };
-                _instance = sentryGameObject.AddComponent<SentryMonoBehaviour>();
-            }
-
-            return _instance;
-        }
+        // HideAndDontSave excludes the gameObject from the scene meaning it does not get destroyed on loading/unloading
+        var sentryGameObject = new GameObject("SentryMonoBehaviour") { hideFlags = HideFlags.HideAndDontSave };
+        return sentryGameObject.AddComponent<SentryMonoBehaviour>();
     }
 }
 
@@ -34,9 +24,9 @@ public partial class SentryMonoBehaviour : MonoBehaviour
 public partial class SentryMonoBehaviour
 {
     public void StartAwakeSpan(MonoBehaviour monoBehaviour) =>
-        SentrySdk.GetSpan()?.StartChild("awake", $"{monoBehaviour.gameObject.name}.{monoBehaviour.GetType().Name}");
+        _sentrySdk?.GetSpan()?.StartChild("awake", $"{monoBehaviour.gameObject.name}.{monoBehaviour.GetType().Name}");
 
-    public void FinishAwakeSpan() => SentrySdk.GetSpan()?.Finish(SpanStatus.Ok);
+    public void FinishAwakeSpan() => _sentrySdk?.GetSpan()?.Finish(SpanStatus.Ok);
 }
 
 /// <summary>
@@ -53,6 +43,9 @@ public partial class SentryMonoBehaviour
     /// Hook to receive an event when the application loses focus.
     /// </summary>
     public event Action? ApplicationPausing;
+
+    private SentrySdk? _sentrySdk;
+    public void SetSentrySdk(SentrySdk sentrySdk) => _sentrySdk ??= sentrySdk;
 
     // Keeping internal track of running state because OnApplicationPause and OnApplicationFocus get called during startup and would fire false resume events
     internal bool _isRunning = true;

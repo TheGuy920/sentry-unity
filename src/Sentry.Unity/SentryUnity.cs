@@ -1,5 +1,7 @@
 using System;
 using System.ComponentModel;
+using System.Reflection;
+using JetBrains.Annotations;
 using Sentry.Extensibility;
 
 namespace Sentry.Unity;
@@ -9,18 +11,17 @@ namespace Sentry.Unity;
 /// </summary>
 public static class SentryUnity
 {
-    private static SentryUnitySdk? UnitySdk;
-
     /// <summary>
     /// Initializes Sentry Unity SDK while configuring the options.
     /// </summary>
     /// <param name="sentryUnityOptionsConfigure">Callback to configure the options.</param>
-    public static void Init(Action<SentryUnityOptions> sentryUnityOptionsConfigure)
+    public static SentryUnitySdk Init(Action<SentryUnityOptions> sentryUnityOptionsConfigure,
+        [CanBeNull] Assembly caller = null)
     {
         var options = new SentryUnityOptions();
         sentryUnityOptionsConfigure.Invoke(options);
 
-        Init(options);
+        return Init(options, caller ?? Assembly.GetCallingAssembly());
     }
 
     /// <summary>
@@ -28,24 +29,9 @@ public static class SentryUnity
     /// </summary>
     /// <param name="options">The options object.</param>
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public static void Init(SentryUnityOptions options)
+    public static SentryUnitySdk Init(SentryUnityOptions options, [CanBeNull] Assembly caller = null)
     {
-        if (UnitySdk is not null)
-        {
-            options.DiagnosticLogger?.LogWarning("The SDK has already been initialized.");
-        }
-
-        UnitySdk = SentryUnitySdk.Init(options);
-    }
-
-    /// <summary>
-    /// Closes the Sentry Unity SDK
-    /// </summary>
-    [EditorBrowsable(EditorBrowsableState.Never)]
-    public static void Close()
-    {
-        UnitySdk?.Close();
-        UnitySdk = null;
+        return SentryUnitySdk.Init(options, caller ?? Assembly.GetCallingAssembly());
     }
 
     /// <summary>
@@ -69,20 +55,5 @@ public static class SentryUnity
         /// The application crashed during the last run.
         /// </summary>
         Crashed
-    }
-
-    /// <summary>
-    /// Retrieves the crash state of the previous application run.
-    /// This indicates whether the application terminated normally or crashed.
-    /// </summary>
-    /// <returns><see cref="CrashedLastRun"/> indicating the state of the previous run.</returns>
-    public static CrashedLastRun GetLastRunState()
-    {
-        if (UnitySdk is null)
-        {
-            return CrashedLastRun.Unknown;
-        }
-
-        return UnitySdk.CrashedLastRun();
     }
 }

@@ -17,6 +17,8 @@ namespace Sentry.Unity;
 /// </remarks>
 public sealed class SentryUnityOptions : SentryOptions
 {
+    internal SentryMonoBehaviour SentryMonoBehaviour { get; private set; }
+
     /// <summary>
     /// UPM name of Sentry Unity SDK (package.json)
     /// </summary>
@@ -297,11 +299,13 @@ public sealed class SentryUnityOptions : SentryOptions
     public SentryUnityOptions() : this(false, ApplicationAdapter.Instance) { }
 
     internal SentryUnityOptions(bool isBuilding, IApplication application) :
-        this(SentryMonoBehaviour.Instance, application, isBuilding)
+        this(application, isBuilding)
     { }
 
-    internal SentryUnityOptions(SentryMonoBehaviour behaviour, IApplication application, bool isBuilding)
+    internal SentryUnityOptions(IApplication application, bool isBuilding)
     {
+        SentryMonoBehaviour = SentryMonoBehaviour.CreateInstance();
+
         // IL2CPP doesn't support Process.GetCurrentProcess().StartupTime
         DetectStartupTime = StartupTimeDetectionMode.Fast;
 
@@ -314,11 +318,11 @@ public sealed class SentryUnityOptions : SentryOptions
 
         this.AddIntegration(new UnityLogHandlerIntegration(this));
         this.AddIntegration(new UnityApplicationLoggingIntegration());
-        this.AddIntegration(new AnrIntegration(behaviour));
+        this.AddIntegration(new AnrIntegration(SentryMonoBehaviour));
         this.AddIntegration(new UnityScopeIntegration(application));
         this.AddIntegration(new UnityBeforeSceneLoadIntegration());
         this.AddIntegration(new SceneManagerIntegration());
-        this.AddIntegration(new SessionIntegration(behaviour));
+        this.AddIntegration(new SessionIntegration(SentryMonoBehaviour));
 
         this.AddExceptionFilter(new UnityBadGatewayExceptionFilter());
         this.AddExceptionFilter(new UnityWebExceptionFilter());

@@ -21,6 +21,9 @@
 
 
   <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>..\..\..\..\..\.config\r2modmanPlus-local\REPO\profiles\Default\BepInEx\core\0Harmony.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine">
       <HintPath>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/Runtime/UnityEngine.dll</HintPath>
       <Private>false</Private>

@@ -13,14 +13,14 @@ public static class SentryWebGL
     /// Configures the WebGL support.
     /// </summary>
     /// <param name="options">The Sentry Unity options to use.</param>
-    public static void Configure(SentryUnityOptions options)
+    public static void Configure(SentrySdk sdk, SentryUnityOptions options)
     {
         options.DiagnosticLogger?.LogDebug("Updating configuration for Unity WebGL.");
 
         // Note: we need to use a custom background worker which actually doesn't work in the background
         // because Unity doesn't support async (multithreading) yet. This may change in the future so let's watch
         // https://docs.unity3d.com/2019.4/Documentation/ScriptReference/PlayerSettings.WebGL-threadsSupport.html
-        options.BackgroundWorker = new WebBackgroundWorker(options, SentryMonoBehaviour.Instance);
+        options.BackgroundWorker = new WebBackgroundWorker(sdk, options, options.SentryMonoBehaviour);
 
         // No way to recognize crashes in WebGL yet. We may be able to do so after implementing the JS support.
         // Additionally, we could recognize the situation when the unity gets stuck due to an error in JS/native:

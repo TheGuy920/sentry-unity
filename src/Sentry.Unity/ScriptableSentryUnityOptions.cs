@@ -120,18 +120,22 @@ public class ScriptableSentryUnityOptions : ScriptableObject
     /// <remarks>
     /// Used for loading the SentryUnityOptions from the ScriptableSentryUnityOptions during runtime.
     /// </remarks>
-    public static SentryUnityOptions? LoadSentryUnityOptions(ISentryUnityInfo unityInfo)
+    public static SentryUnityOptions? LoadSentryUnityOptions(
+        SentrySdk sdk,
+        ISentryUnityInfo unityInfo)
     {
         var scriptableOptions = Resources.Load<ScriptableSentryUnityOptions>($"{ConfigRootFolder}/{ConfigName}");
         if (scriptableOptions is not null)
         {
-            return scriptableOptions.ToSentryUnityOptions(false, unityInfo);
+            return scriptableOptions.ToSentryUnityOptions(sdk, false, unityInfo);
         }
 
         return null;
     }
 
-    internal SentryUnityOptions ToSentryUnityOptions(bool isBuilding, ISentryUnityInfo? unityInfo, IApplication? application = null)
+    internal SentryUnityOptions ToSentryUnityOptions(
+        SentrySdk sdk,
+        bool isBuilding, ISentryUnityInfo? unityInfo, IApplication? application = null)
     {
         application ??= ApplicationAdapter.Instance;
 
@@ -240,7 +244,7 @@ public class ScriptableSentryUnityOptions : ScriptableObject
             options.AddIl2CppExceptionProcessor(unityInfo);
         }
 
-        HandlePlatformRestrictedOptions(options, unityInfo, application);
+        HandlePlatformRestrictedOptions(sdk, options, unityInfo, application);
         HandleExceptionFilter(options);
 
         if (!AnrDetectionEnabled)
@@ -251,7 +255,9 @@ public class ScriptableSentryUnityOptions : ScriptableObject
         return options;
     }
 
-    internal void HandlePlatformRestrictedOptions(SentryUnityOptions options, ISentryUnityInfo? unityInfo, IApplication application)
+    internal void HandlePlatformRestrictedOptions(
+        SentrySdk sdk,
+        SentryUnityOptions options, ISentryUnityInfo? unityInfo, IApplication application)
     {
         if (unityInfo?.IsKnownPlatform() == false)
         {
@@ -261,7 +267,7 @@ public class ScriptableSentryUnityOptions : ScriptableObject
             if (options.BackgroundWorker is null)
             {
                 options.DiagnosticLogger?.LogDebug("Platform support for background thread execution is unknown: using WebBackgroundWorker.");
-                options.BackgroundWorker = new WebBackgroundWorker(options, SentryMonoBehaviour.Instance);
+                options.BackgroundWorker = new WebBackgroundWorker(sdk, options, options.SentryMonoBehaviour);
             }
 
             // Disable offline caching regardless whether it was enabled or not.

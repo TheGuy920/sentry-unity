@@ -16,10 +16,12 @@ internal class WebBackgroundWorker : IBackgroundWorker
     private readonly SentryMonoBehaviour _behaviour;
     private readonly UnityWebRequestTransport _transport;
 
-    public WebBackgroundWorker(SentryUnityOptions options, SentryMonoBehaviour behaviour)
+    public WebBackgroundWorker(
+        SentrySdk sdk,
+        SentryUnityOptions options, SentryMonoBehaviour behaviour)
     {
         _behaviour = behaviour;
-        _transport = new UnityWebRequestTransport(options);
+        _transport = new UnityWebRequestTransport(sdk, options);
     }
 
     public bool EnqueueEnvelope(Envelope envelope)
@@ -37,8 +39,10 @@ internal class UnityWebRequestTransport : HttpTransportBase
 {
     private readonly SentryUnityOptions _options;
 
-    public UnityWebRequestTransport(SentryUnityOptions options)
-        : base(options)
+    public UnityWebRequestTransport(
+        SentrySdk sdk,
+        SentryUnityOptions options)
+        : base(sdk, options)
         => _options = options;
 
     // adapted HttpTransport.SendEnvelopeAsync()

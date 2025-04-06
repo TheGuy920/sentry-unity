@@ -1,14 +1,18 @@
 using System;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using HarmonyLib;
 using Sentry.Extensibility;
 using Sentry.Unity.Integrations;
 using UnityEngine;
 
 namespace Sentry.Unity;
 
-internal class SentryUnitySdk
+public class SentryUnitySdk
 {
+    private SentrySdk _sentrySdk = null!;
     private readonly SentryUnityOptions _options;
     private IDisposable _dotnetSdk = null!;
     private FileStream? _lockFile;
@@ -18,9 +22,13 @@ internal class SentryUnitySdk
         _options = options;
     }
 
-    internal static SentryUnitySdk? Init(SentryUnityOptions options)
+    internal static SentryUnitySdk? Init(SentryUnityOptions options, Assembly caller)
     {
         var unitySdk = new SentryUnitySdk(options);
+
+
+        var namespaces = AccessTools.GetTypesFromAssembly(caller).Select(t => t.Namespace);
+        options.AddEventProcessor(new DefaultFilter(namespaces));
 
         options.SetupUnityLogging();
         if (!options.ShouldInitializeSdk())
@@ -49,11 +57,12 @@ internal class SentryUnitySdk
             }
         }
 
-        unitySdk._dotnetSdk = SentrySdk.Init(options);
+        unitySdk._sentrySdk = SentrySdk.New();
+        unitySdk._dotnetSdk = unitySdk._sentrySdk.Init(options);
 
         if (options.NativeContextWriter is { } contextWriter)
         {
-            SentrySdk.ConfigureScope((scope) =>
+            unitySdk._sentrySdk.ConfigureScope((scope) =>
             {
                 var task = Task.Run(() => contextWriter.Write(scope)).ContinueWith(t =>
                 {

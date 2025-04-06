@@ -9,17 +9,8 @@
 </p>
 <p align="center">
 
-Sentry SDK for Unity (Newtonsoft.Json EDITION)
+Sentry SDK for Unity
 ===========
-
-> [!IMPORTANT]
-> ### This is a port of Sentry.Unity that relies on Newtonsoft.Json instead of System.Text.Json
-> ### It targets netstandard2.1 ONLY
-
-> [!CAUTION]
-> #### I completely destroyed whatever workflow they had going on in an effort to get it compiling, ported, and done with
-
-___
 
 [![build](https://github.com/getsentry/sentry-unity/workflows/CI/badge.svg?branch=main)](https://github.com/getsentry/sentry-unity/actions?query=branch%3Amain)
 [![Discord Chat](https://img.shields.io/discord/621778831602221064?logo=discord&logoColor=ffffff&color=7389D8)](https://discord.gg/PXa5Apfe7K)
