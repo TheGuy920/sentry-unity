@@ -4,7 +4,7 @@
     <LangVersion>latestmajor</LangVersion>
     <TargetFramework>netstandard2.1</TargetFramework>
     <OutDir>/home/theguy920/RiderProjects/SENTRY.UNITY/Sentry/Unity/OUT</OutDir>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
     <NoWarn>$(NoWarn);1705;8632</NoWarn>
   </PropertyGroup>
 
