@@ -17,6 +17,11 @@ public class SentryUnitySdk
     private IDisposable _dotnetSdk = null!;
     private FileStream? _lockFile;
 
+    /// <summary>
+    /// The Sentry SDK instance.
+    /// </summary>
+    public SentrySdk SentrySdk => _sentrySdk;
+
     private SentryUnitySdk(SentryUnityOptions options)
     {
         _options = options;
