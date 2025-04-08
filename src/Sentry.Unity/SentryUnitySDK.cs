@@ -27,20 +27,13 @@ public class SentryUnitySdk
         _options = options;
     }
 
-    internal static SentryUnitySdk? Init(SentryUnityOptions options, Assembly caller)
+    internal static SentryUnitySdk? Init(SentrySdk sdk, SentryUnityOptions options, Assembly caller)
     {
         var unitySdk = new SentryUnitySdk(options);
 
-
-        var namespaces = AccessTools.GetTypesFromAssembly(caller).Select(t => t.Namespace);
+        var namespaces = AccessTools.GetTypesFromAssembly(caller).Select(t => t.Namespace).Distinct();
         options.AddEventProcessor(new DefaultFilter(namespaces));
-
         options.SetupUnityLogging();
-        if (!options.ShouldInitializeSdk())
-        {
-            return null;
-        }
-
         MainThreadData.CollectData();
 
         // On Standalone, we disable cache dir in case multiple app instances run over the same path.
@@ -62,7 +55,7 @@ public class SentryUnitySdk
             }
         }
 
-        unitySdk._sentrySdk = SentrySdk.New();
+        unitySdk._sentrySdk = sdk;
         unitySdk._dotnetSdk = unitySdk._sentrySdk.Init(options);
 
         if (options.NativeContextWriter is { } contextWriter)

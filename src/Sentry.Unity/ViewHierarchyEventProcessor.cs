@@ -45,7 +45,7 @@ public class ViewHierarchyEventProcessor : ISentryEventProcessorWithHint
     internal byte[] CaptureViewHierarchy()
     {
         using var stream = new MemoryStream();
-        using var writer = new JsonTextWriter(new StreamWriter(stream));
+        using var writer = new SentryJsonWriter(stream);
 
         var viewHierarchy = CreateViewHierarchy(
             _options.MaxViewHierarchyRootObjects,

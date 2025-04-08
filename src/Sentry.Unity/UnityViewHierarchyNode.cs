@@ -17,7 +17,7 @@ internal class UnityViewHierarchyNode : ViewHierarchyNode
 
     public UnityViewHierarchyNode(string name) : base(name) { }
 
-    protected override void WriteAdditionalProperties(JsonTextWriter writer, IDiagnosticLogger? logger)
+    protected override void WriteAdditionalProperties(SentryJsonWriter writer, IDiagnosticLogger? logger)
     {
         if (!string.IsNullOrWhiteSpace(Tag))
         {

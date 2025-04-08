@@ -154,7 +154,7 @@ public sealed class SentryUnityOptions : SentryOptions
     /// <summary>
     /// Whether the SDK should add native support for iOS
     /// </summary>
-    public bool IosNativeSupportEnabled { get; set; } = true;
+    public bool IosNativeSupportEnabled { get; set; } = false;
 
     /// <summary>
     /// Whether the SDK should initialize the native SDK before the game starts. This bakes the options at build-time into
@@ -188,12 +188,12 @@ public sealed class SentryUnityOptions : SentryOptions
     /// <summary>
     /// Whether the SDK should add the NDK integration for Android
     /// </summary>
-    public bool NdkIntegrationEnabled { get; set; } = true;
+    public bool NdkIntegrationEnabled { get; set; } = false;
 
     /// <summary>
     /// Whether the SDK should sync the scope to the NDK layer for Android
     /// </summary>
-    public bool NdkScopeSyncEnabled { get; set; } = true;
+    public bool NdkScopeSyncEnabled { get; set; } = false;
 
     /// <summary>
     /// Whether the SDK should add native support for Windows
@@ -203,7 +203,7 @@ public sealed class SentryUnityOptions : SentryOptions
     /// <summary>
     /// Whether the SDK should add native support for MacOS
     /// </summary>
-    public bool MacosNativeSupportEnabled { get; set; } = true;
+    public bool MacosNativeSupportEnabled { get; set; } = false;
 
     /// <summary>
     /// Whether the SDK should add native support for Linux
@@ -223,7 +223,7 @@ public sealed class SentryUnityOptions : SentryOptions
     /// <summary>
     /// Enable automatic performance transaction tracking.
     /// </summary>
-    public bool PerformanceAutoInstrumentationEnabled { get; set; } = false;
+    public bool PerformanceAutoInstrumentationEnabled { get; set; } = true;
 
     /// <summary>
     /// This option is restricted due to incompatibility between IL2CPP and Enhanced mode.
@@ -296,15 +296,16 @@ public sealed class SentryUnityOptions : SentryOptions
 
     internal List<string> SdkIntegrationNames { get; set; } = new();
 
-    public SentryUnityOptions() : this(false, ApplicationAdapter.Instance) { }
+    public SentryUnityOptions(SentrySdk sdk) : this(sdk, false, ApplicationAdapter.Instance) { }
 
-    internal SentryUnityOptions(bool isBuilding, IApplication application) :
-        this(application, isBuilding)
+    internal SentryUnityOptions(SentrySdk sdk,bool isBuilding, IApplication application) :
+        this(sdk, application, isBuilding)
     { }
 
-    internal SentryUnityOptions(IApplication application, bool isBuilding)
+    internal SentryUnityOptions(SentrySdk sdk, IApplication application, bool isBuilding)
     {
-        SentryMonoBehaviour = SentryMonoBehaviour.CreateInstance();
+        SentryMonoBehaviour = SentryMonoBehaviour.CreateInstance(sdk);
+        SentryMonoBehaviour.StartAwakeSpan(SentryMonoBehaviour);
 
         // IL2CPP doesn't support Process.GetCurrentProcess().StartupTime
         DetectStartupTime = StartupTimeDetectionMode.Fast;
@@ -336,24 +337,24 @@ public sealed class SentryUnityOptions : SentryOptions
 
         // Ben.Demystifer not compatible with IL2CPP. We could allow Enhanced in the future for Mono.
         // See https://github.com/getsentry/sentry-unity/issues/675
-        base.StackTraceMode = StackTraceMode.Original;
-        IsEnvironmentUser = false;
+        // base.StackTraceMode = StackTraceMode.Original;
+        // IsEnvironmentUser = false;
 
-        if (application.ProductName is string productName
-            && !string.IsNullOrWhiteSpace(productName)
-            && productName.Any(c => c != '.')) // productName consisting solely of '.'
-        {
-            productName = Regex.Replace(productName, @"\n|\r|\t|\/|\\|\.{2}|@", "_");
-            Release = $"{productName}@{application.Version}";
-        }
-        else
-        {
-            Release = application.Version;
-        }
+        // if (application.ProductName is string productName
+        //     && !string.IsNullOrWhiteSpace(productName)
+        //     && productName.Any(c => c != '.')) // productName consisting solely of '.'
+        // {
+        //     productName = Regex.Replace(productName, @"\n|\r|\t|\/|\\|\.{2}|@", "_");
+        //     Release = $"{productName}@{application.Version}";
+        // }
+        // else
+        // {
+        //     Release = application.Version;
+        // }
 
-        Environment = application.IsEditor && !isBuilding
-            ? "editor"
-            : "production";
+        // Environment = application.IsEditor && !isBuilding
+        //     ? "editor"
+        //     : "production";
 
         AddBreadcrumbsForLogType = new Dictionary<LogType, bool>
         {

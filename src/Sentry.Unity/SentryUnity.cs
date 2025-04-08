@@ -15,23 +15,27 @@ public static class SentryUnity
     /// Initializes Sentry Unity SDK while configuring the options.
     /// </summary>
     /// <param name="sentryUnityOptionsConfigure">Callback to configure the options.</param>
+    /// <param name="caller"></param>
     public static SentryUnitySdk Init(Action<SentryUnityOptions> sentryUnityOptionsConfigure,
         [CanBeNull] Assembly caller = null)
     {
-        var options = new SentryUnityOptions();
+        var sdk = SentrySdk.New();
+        var options = new SentryUnityOptions(sdk);
         sentryUnityOptionsConfigure.Invoke(options);
 
-        return Init(options, caller ?? Assembly.GetCallingAssembly());
+        return Init(sdk, options, caller ?? Assembly.GetCallingAssembly());
     }
 
     /// <summary>
     /// Initializes Sentry Unity SDK while providing an options object.
     /// </summary>
+    /// <param name="sdk"></param>
     /// <param name="options">The options object.</param>
+    /// <param name="caller"></param>
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public static SentryUnitySdk Init(SentryUnityOptions options, [CanBeNull] Assembly caller = null)
+    public static SentryUnitySdk Init(SentrySdk sdk, SentryUnityOptions options, [CanBeNull] Assembly caller = null)
     {
-        return SentryUnitySdk.Init(options, caller ?? Assembly.GetCallingAssembly());
+        return SentryUnitySdk.Init(sdk, options, caller ?? Assembly.GetCallingAssembly());
     }
 
     /// <summary>

@@ -7,14 +7,13 @@ namespace Sentry.Unity;
 /// <summary>
 /// Singleton and DontDestroyOnLoad setup.
 /// </summary>
-[AddComponentMenu("")] // Hides it from being added as a component in the inspector
 public partial class SentryMonoBehaviour : MonoBehaviour
 {
-    public static SentryMonoBehaviour CreateInstance()
+    public static SentryMonoBehaviour CreateInstance(SentrySdk sdk)
     {
         // HideAndDontSave excludes the gameObject from the scene meaning it does not get destroyed on loading/unloading
         var sentryGameObject = new GameObject("SentryMonoBehaviour") { hideFlags = HideFlags.HideAndDontSave };
-        return sentryGameObject.AddComponent<SentryMonoBehaviour>();
+        return sentryGameObject.AddComponent<SentryMonoBehaviour>().SetSentrySdk(sdk);
     }
 }
 
@@ -45,7 +44,8 @@ public partial class SentryMonoBehaviour
     public event Action? ApplicationPausing;
 
     private SentrySdk? _sentrySdk;
-    public void SetSentrySdk(SentrySdk sentrySdk) => _sentrySdk ??= sentrySdk;
+    // public void SetSentrySdk(SentrySdk sentrySdk) => _sentrySdk ??= sentrySdk;
+    public SentryMonoBehaviour SetSentrySdk(SentrySdk sentrySdk) { _sentrySdk ??= sentrySdk; return this; }
 
     // Keeping internal track of running state because OnApplicationPause and OnApplicationFocus get called during startup and would fire false resume events
     internal bool _isRunning = true;
@@ -97,6 +97,7 @@ public partial class SentryMonoBehaviour
         // This prevents object from being destroyed when unloading the scene since using HideFlags.HideAndDontSave
         // doesn't guarantee its persistence on all platforms i.e. WebGL
         // (see https://github.com/getsentry/sentry-unity/issues/1678 for more details)
+        hideFlags = HideFlags.HideAndDontSave;
         DontDestroyOnLoad(gameObject);
     }
 }

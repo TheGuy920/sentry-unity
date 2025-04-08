@@ -69,7 +69,7 @@ public sealed class Unity : ISentryJsonSerializable
             ActiveSceneName = ActiveSceneName
         };
 
-    public void WriteTo(JsonTextWriter writer, IDiagnosticLogger? logger)
+    public void WriteTo(SentryJsonWriter writer, IDiagnosticLogger logger)
     {
         writer.WriteStartObject();
 
@@ -122,7 +122,7 @@ public sealed class Unity : ISentryJsonSerializable
     public string ToJsonString(IDiagnosticLogger? logger = null)
     {
         using var stream = new MemoryStream();
-        using var writer = new JsonTextWriter(new StreamWriter(stream));
+        using var writer = new SentryJsonWriter(stream);
 
         WriteTo(writer, logger);
         writer.Flush();

@@ -37,7 +37,7 @@ public class ScriptableSentryUnityOptions : ScriptableObject
     [field: SerializeField] public double TracesSampleRate { get; set; } = 0;
     [field: SerializeField] public bool AutoStartupTraces { get; set; } = true;
     [field: SerializeField] public bool AutoSceneLoadTraces { get; set; } = true;
-    [field: SerializeField] public bool AutoAwakeTraces { get; set; } = false;
+    [field: SerializeField] public bool AutoAwakeTraces { get; set; } = true;
 
     [field: SerializeField] public bool AutoSessionTracking { get; set; } = true;
 
@@ -103,14 +103,14 @@ public class ScriptableSentryUnityOptions : ScriptableObject
     [field: SerializeField] public bool MacosNativeSupportEnabled { get; set; } = true;
     [field: SerializeField] public bool LinuxNativeSupportEnabled { get; set; } = true;
 
-    [field: SerializeField] public bool Il2CppLineNumberSupportEnabled { get; set; } = true;
+    [field: SerializeField] public bool Il2CppLineNumberSupportEnabled { get; set; } = false;
 
     [field: SerializeField] public SentryRuntimeOptionsConfiguration? RuntimeOptionsConfiguration { get; set; }
     [field: SerializeField] public SentryBuildTimeOptionsConfiguration? BuildTimeOptionsConfiguration { get; set; }
     [field: SerializeField] public SentryOptionsConfiguration? OptionsConfiguration { get; set; }
 
     [field: SerializeField] public bool Debug { get; set; } = true;
-    [field: SerializeField] public bool DebugOnlyInEditor { get; set; } = true;
+    [field: SerializeField] public bool DebugOnlyInEditor { get; set; } = false;
     [field: SerializeField] public SentryLevel DiagnosticLevel { get; set; } = SentryLevel.Warning;
 
     /// <summary>
@@ -139,7 +139,7 @@ public class ScriptableSentryUnityOptions : ScriptableObject
     {
         application ??= ApplicationAdapter.Instance;
 
-        var options = new SentryUnityOptions(isBuilding, application)
+        var options = new SentryUnityOptions(sdk, isBuilding, application)
         {
             Enabled = Enabled,
             Dsn = Dsn,
