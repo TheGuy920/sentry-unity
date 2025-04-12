@@ -12,21 +12,21 @@
 Sentry SDK for Unity (Newtonsoft.Json EDITION)
 ===========
 
-## Changes
-- This is a port of [Sentry.Unity](https://github.com/getsentry/sentry-unity) that uses [Newtonsoft.Json](https://nuget.org/packages/newtonsoft.json) instead of [System.Text.Json](https://www.nuget.org/packages/System.Text.Json)
-- It ***only*** targets [netstandard 2.1](https://learn.microsoft.com/en-us/dotnet/standard/net-standard?tabs=net-standard-2-1)
-- It supports multiple instances running side-by-side
-- It only tracks exceptions that include the initializing assembly
+> [!IMPORTANT]
+> This is a port of [Sentry.Unity](https://github.com/getsentry/sentry-unity) that uses [Newtonsoft.Json](https://nuget.org/packages/newtonsoft.json) instead of [System.Text.Json](https://www.nuget.org/packages/System.Text.Json)
+> It ***only*** targets [netstandard 2.1](https://learn.microsoft.com/en-us/dotnet/standard/net-standard?tabs=net-standard-2-1)
+> It supports multiple instances running side-by-side
+> It only tracks exceptions that include the initializing assembly
   ```cs
   MyAssembly.Main() { SentryUnity.Init }
   ...
   [Log] MyAssembly.MyClass.Function threw an exception: ...
   ```
 
-## Usage
-- Do ***NOT*** call `Sentry.Init`
-- Call `SentryUnity.Init` instead!
-- You must wait until Unity has loaded, e.g. `Entry.Awake` before calling `Init`
+> [!TIP]
+> Do ***NOT*** call `Sentry.Init`
+> Call `SentryUnity.Init` instead!
+> You must wait until Unity has loaded, e.g. `Entry.Awake` before calling `Init`
 
 
 ## Unity Versions
@@ -40,7 +40,7 @@ It resolves the `System.TypeLoadException` stemming from Mono implementation dif
 - [https://discussions.unity.com/t/unity-future-net-development-status/](https://discussions.unity.com/t/unity-future-net-development-status/836646/402?page=21)
 - [https://github.com/getsentry/sentry-unity/issues/1777](https://github.com/getsentry/sentry-unity/issues/1777)
 
-## Caution
+> [!CAUTION]
 > I completely destroyed whatever workflow they had going on in an effort to get it compiling, ported, and done with
 
 ___
