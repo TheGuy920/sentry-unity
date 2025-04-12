@@ -9,16 +9,44 @@
 </p>
 <p align="center">
 
-Sentry SDK for Unity
+Sentry SDK for Unity (Newtonsoft.Json EDITION)
 ===========
+
+## Changes
+- This is a port of [Sentry.Unity](https://github.com/getsentry/sentry-unity) that uses [Newtonsoft.Json](https://nuget.org/packages/newtonsoft.json) instead of [System.Text.Json](https://www.nuget.org/packages/System.Text.Json)
+- It ***only*** targets [netstandard 2.1](https://learn.microsoft.com/en-us/dotnet/standard/net-standard?tabs=net-standard-2-1)
+- It supports multiple instances running side-by-side
+- It only tracks exceptions that include the initializing assembly
+  ```cs
+  MyAssembly.Main() { SentryUnity.Init }
+  ...
+  [Log] MyAssembly.MyClass.Function threw an exception: ...
+  ```
+
+## Usage
+- Do ***NOT*** call `Sentry.Init`
+- Call `SentryUnity.Init` instead!
+- You must wait until Unity has loaded, e.g. `Entry.Awake` before calling `Init`
+
+
+## Unity Versions
+It was tested and confirmed to work with the following unity versions
+- [2022.3.1](https://unity.com/releases/editor/whats-new/2022.3.1)
+
+## Reason
+It resolves the `System.TypeLoadException` stemming from Mono implementation differences in [netstandard 2.1](https://learn.microsoft.com/en-us/dotnet/standard/net-standard?tabs=net-standard-2-1)
+- [https://github.com/godotengine/godot/issues/42271#55](https://github.com/godotengine/godot/issues/42271#issuecomment-773703955)
+- [https://github.com/godotengine/godot/issues/42271#95](https://github.com/godotengine/godot/issues/42271#issuecomment-774456295)
+- [https://discussions.unity.com/t/unity-future-net-development-status/](https://discussions.unity.com/t/unity-future-net-development-status/836646/402?page=21)
+- [https://github.com/getsentry/sentry-unity/issues/1777](https://github.com/getsentry/sentry-unity/issues/1777)
+
+## Caution
+> I completely destroyed whatever workflow they had going on in an effort to get it compiling, ported, and done with
+
+___
 
 [![build](https://github.com/getsentry/sentry-unity/workflows/CI/badge.svg?branch=main)](https://github.com/getsentry/sentry-unity/actions?query=branch%3Amain)
 [![Discord Chat](https://img.shields.io/discord/621778831602221064?logo=discord&logoColor=ffffff&color=7389D8)](https://discord.gg/PXa5Apfe7K)
-
-Install it via `UPM`:
-```
-https://github.com/getsentry/unity.git#3.1.0
-```
 
 ## Documentation
 
@@ -34,12 +62,6 @@ Blog posts:
 ## Setup Sentry SDK with Unity
 
 [![YouTube Video of Setup Sentry SDK with Unity](https://img.youtube.com/vi/P0E9upOSznE/0.jpg)](https://www.youtube.com/watch?v=P0E9upOSznE)
-
-## Legacy SDK
-
-If you are using Unity 5.6 or 2018, these are not supported by this SDK. There are no plans to support versions of Unity older than **2019.4**.
-
-Sentry offered a minimalistic but stable SDK called [_sentry-unity-lite_](https://github.com/getsentry/sentry-unity-lite). It's available on a different repository. That SDK is now deprecated but is still compatible with Sentry server.
 
 ## Resources
 
